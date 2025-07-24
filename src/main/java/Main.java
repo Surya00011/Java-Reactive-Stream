@@ -3,9 +3,13 @@ import reactor.core.publisher.Flux;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         // Try different values: 1 (success), 2 (empty), 99 (error)
-        Flux<String> api = FakeApi.getNameApi(1)
-                .doOnSubscribe(s -> System.out.println("About to subscribe"))
+        Flux<String> api = FakeApi.getNameApi()
                 .doOnNext(s -> System.out.println("Processing: " + s))
+                .map(name->{
+                    if(name.equals("Kishore")) throw new RuntimeException("Error Occurred");
+                    return name.toUpperCase();
+                })
+                .doOnSubscribe(s -> System.out.println("About to subscribe"))
                 .doOnComplete(() -> System.out.println("Finished"))
                 .doOnError(err -> System.out.println("doOnError: " + err.getMessage()))
                 .doFinally(signal -> System.out.println("Signal: " + signal));
@@ -21,6 +25,6 @@ public class Main {
         Thread.sleep(4000);
     }
     public static void custom(){
-        FakeApi.getNameApi(1).subscribe(new CustomSubscribe());
+        FakeApi.getNameApi().subscribe(new CustomSubscribe());
     }
 }
