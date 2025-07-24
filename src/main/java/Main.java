@@ -1,5 +1,7 @@
 import reactor.core.publisher.Flux;
 
+import java.time.Duration;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         // Try different values: 1 (success), 2 (empty), 99 (error)
@@ -22,6 +24,9 @@ public class Main {
 
         System.out.println("Main thread continues...");
         custom();
+
+        FakeApi.getFastNameApiWithBackpressure().onBackpressureBuffer().delayElements(Duration.ofMillis(50)).subscribe(System.out::println);
+
         Thread.sleep(4000);
     }
     public static void custom(){
