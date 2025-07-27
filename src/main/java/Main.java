@@ -27,7 +27,7 @@ public class Main {
 
         FakeApi.getFastNameApiWithBackpressure().onBackpressureBuffer().delayElements(Duration.ofMillis(50)).subscribe(System.out::println);
 
-        Thread.sleep(4000);
+        Thread.sleep(5000);
     }
     public static void custom(){
         FakeApi.getNameApi().subscribe(new CustomSubscribe());
