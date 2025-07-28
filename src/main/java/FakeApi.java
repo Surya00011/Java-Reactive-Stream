@@ -19,9 +19,9 @@ public class FakeApi {
     // Fast infinite source with backpressure strategy
 
     public static Flux<String> getFastNameApiWithBackpressure() {
-        return Flux.interval(Duration.ofMillis(5)) // 5ms-கு once emit
+        return Flux.interval(Duration.ofMillis(5)) 
                 .map(i -> "Name-" + i)
                 .map(String::valueOf)
-                .take(100); // 100 names மட்டும்
+                .take(100); 
     }
 }
