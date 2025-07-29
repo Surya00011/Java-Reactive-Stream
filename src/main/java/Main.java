@@ -4,7 +4,7 @@ import java.time.Duration;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        // Try different values: 1 (success), 2 (empty), 99 (error)
+        
         Flux<String> api = FakeApi.getNameApi()
                 .doOnNext(s -> System.out.println("Processing: " + s))
                 .map(name->{
